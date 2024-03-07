@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,12 @@ Route::get('/contact', function () {
 	return view('contact');
 });
 
-Route::get('/admins', function () {
-	return view('admin.desboard');
-});
+//Route::get('/admins', function () {
+//	return view('admin.desboard');
+//});
+Route::get('/admins', [AdminController::class, 'index'])->middleware('is_admin');
+//Route::get('/login', [AdminController::class, 'login'])->name('login');// have or not, no problem
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
